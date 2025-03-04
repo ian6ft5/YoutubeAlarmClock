@@ -57,6 +57,11 @@ while (true)
         currTimeSpan++;
     }
 
+    if (startTime - DateTime.Now < TimeSpan.FromSeconds(0))
+    {
+
+    }
+
 
     //wait to restart loop
     if (currTimeSpan < timeSpans.Length)
