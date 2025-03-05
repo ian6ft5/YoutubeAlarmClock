@@ -1,9 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Text.Json;
-using static System.Net.Mime.MediaTypeNames;
-
-TimeSpan[] timeSpans = new TimeSpan[] { TimeSpan.FromHours(3), TimeSpan.FromHours(1), TimeSpan.FromMinutes(15), TimeSpan.FromMinutes(5), TimeSpan.FromSeconds(60), TimeSpan.FromSeconds(15) };
-int currTimeSpan = 0;
 
 
 Dictionary<DayOfWeek, TimeSpan> alarmSettings = new Dictionary<DayOfWeek, TimeSpan>();
@@ -18,7 +14,7 @@ catch (Exception ex)
 {
     foreach (DayOfWeek day in Enum.GetValues<DayOfWeek>())
     {
-        alarmSettings.Add(day, TimeSpan.FromHours(5).Add(TimeSpan.FromMinutes(15)));
+        alarmSettings.Add(day, TimeSpan.FromHours(6).Add(TimeSpan.FromMinutes(15)));
     }
 }
 
@@ -73,45 +69,3 @@ using (Process proc = Process.Start(start))
 
     var _ = proc.ExitCode;
 }
-
-
-return;
-/*while (true)
-{
-    if (currTimeSpan == 5)
-    {
-        //launch video and set currTimeSpan back to 0
-        currTimeSpan = 0;
-        ProcessStartInfo start = new();
-        start.Arguments = $"{url} --start-fullscreen";
-        start.FileName = "chrome.exe";
-
-        using (Process proc = Process.Start(start))
-        {
-            proc.WaitForExit();
-
-            var _ = proc.ExitCode;
-        }
-    }
-    //determine how close we are to the start time
-    DateOnly tomorrow = DateOnly.FromDateTime(DateTime.Now).AddDays(1);
-    DateTime nextAlarm = tomorrow.ToDateTime(TimeOnly.FromTimeSpan(alarmSettings[tomorrow.DayOfWeek]));
-    DateTime startTime = nextAlarm - videoDuration;
-
-    if (startTime - DateTime.Now < (timeSpans[currTimeSpan] - timeSpans[currTimeSpan + 1]))
-    {
-        currTimeSpan++;
-    }
-
-    if (startTime - DateTime.Now < TimeSpan.FromSeconds(0))
-    {
-
-    }
-
-
-    //wait to restart loop
-    if (currTimeSpan < timeSpans.Length)
-    {
-        Thread.Sleep(timeSpans[currTimeSpan]);
-    }
-}*/
