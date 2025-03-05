@@ -23,3 +23,5 @@ I got into the habit of playing a brown noise Youtube video when I go to bed. Th
     3. create shortcut to appsettings.json on user's desktop to edit alarms without searching for file
     4. import a scheduled task from .xml file
 * A version for Linux/Mac users, eventually(?)
+* A Windows service vision. Add it to services so it's always running, it will check periodically how much time until it needs to start, and windows can restart it automatically if it fails.
+* A method to skip days as desired, something more elegant than not having that day as a key in appsettings.json
