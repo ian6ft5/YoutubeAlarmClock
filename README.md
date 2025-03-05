@@ -1,6 +1,6 @@
 # Youtube Alarm Clock
 
-### An Application for Windows Machines by heuristix
+### An Application for Windows Machines by ian6ft5
 
 I got into the habit of playing a brown noise Youtube video when I go to bed. The video has a dark animation of a spaceship cockpit with stars passing by and creates a great environment for me to sleep. This particular video switches to a soft song with ~20 minutes left, so I had the idea to launch it at a calculated time stamp so the music starts at the time I want to wake up. This is the child of that idea.
 
