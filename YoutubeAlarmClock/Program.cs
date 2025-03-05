@@ -18,7 +18,7 @@ catch (Exception ex)
 {
     foreach (DayOfWeek day in Enum.GetValues<DayOfWeek>())
     {
-        alarmSettings.Add(day, TimeSpan.FromHours(1).Add(TimeSpan.FromMinutes(15)));
+        alarmSettings.Add(day, TimeSpan.FromHours(5).Add(TimeSpan.FromMinutes(15)));
     }
 }
 
@@ -28,20 +28,24 @@ foreach (var kvp in alarmSettings)
     Console.WriteLine($"{kvp.Key}: {kvp.Value}");
 }
 
-string url = @"https://www.youtube.com/embed/XWKcohg3_XY?autoplay=1&t=0s";
+string url = @"https://www.youtube.com/embed/XWKcohg3_XY?start=";
 TimeSpan videoDuration = TimeSpan.FromSeconds(38 + (59 * 60) + (9 * 60 * 60));//9hrs, 59 min, 38 sec
 
 DateOnly tomorrow = DateOnly.FromDateTime(DateTime.Now).AddDays(1);
 DateTime nextAlarm = tomorrow.ToDateTime(TimeOnly.FromTimeSpan(alarmSettings[tomorrow.DayOfWeek]));
 TimeSpan timeToAlarm = nextAlarm - DateTime.Now;
-int startVidAt = (int)(videoDuration - timeToAlarm).TotalSeconds;
+TimeSpan startTime = videoDuration - timeToAlarm;
+string urlTimeStamp = $"{(int)startTime.TotalSeconds}&autoplay=1";
 
-if (startVidAt < 0)
+if (timeToAlarm < TimeSpan.FromSeconds(0))
 {
-    startVidAt = 0;
+    url += "0s";
+}
+else
+{
+    url += urlTimeStamp;
 }
 
-url = url.Replace("t=0s", $"t={startVidAt}s");
 
 Console.WriteLine(url);
 
@@ -58,9 +62,11 @@ using (Process process = Process.Start(psi))
     process.WaitForExit();
 }
 
+Thread.Sleep(5000);
+
 ProcessStartInfo start = new();
 start.Arguments = $"{url} --start-fullscreen";
-start.FileName = @"C:\Program Files\Google\Chrome\Application\chrome.exe";
+start.FileName = @"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe";
 using (Process proc = Process.Start(start))
 {
     proc.WaitForExit();
